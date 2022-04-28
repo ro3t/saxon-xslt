@@ -63,11 +63,12 @@ module Saxon
     private
 
     def self.main_jar(path)
-      ['saxon9he.jar', 'saxon9pe.jar', 'saxon9ee.jar'].map { |jar| path.join(jar) }.find { |jar| jar.file? }
+      ['saxon-he-10.8.jar'].map { |jar| path.join(jar) }.find { |jar| jar.file? }
     end
 
     def self.extra_jars(path)
-      optional = ['saxon9-unpack.jar', 'saxon9-sql.jar'].map { |jar| path.join(jar) }.select { |jar| jar.file? }
+      jars = ['saxon-he-test-10.8.jar', 'saxon-he-xqj-10.8.jar', 'jline-2.14.6.jar', 'xml-resolver-1.2.jar']
+      optional = jars.map { |jar| path.join(jar) }.select { |jar| jar.file? }
       icu = path.children.find { |jar| jar.extname == '.jar' && !jar.basename.to_s.match(/^saxon-icu|^icu4j/).nil? }
       ([icu] + optional).compact
     end
